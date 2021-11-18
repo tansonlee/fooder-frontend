@@ -5,7 +5,7 @@ type Props = {
 	navigation: any;
 };
 
-const CreateEnterRoom = (props): Props => {
+const CreateEnterRoom = ({ navigation }): Props => {
 	const handleCreateRoomPress = () => {
 		navigation.navigate("CreateRoom");
 	};
