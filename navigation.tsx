@@ -12,8 +12,8 @@ const MainNavigator: React.FC = () => {
   return (
     <Navigator>
       <Screen name="Home" component={CreateEnterRoom} />
-      <Screen name="CreateRoom" component={CreateRoom} />
-      <Screen name="EnterRoom" component={EnterRoom} />
+      <Screen name="Create Room" component={CreateRoom} />
+      <Screen name="Enter Room" component={EnterRoom} />
     </Navigator>
   );
 };
