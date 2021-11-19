@@ -9,10 +9,10 @@ const CreateEnterRoom = ({ navigation }): Props => {
   // can we abstract this and take the event as a function parameter?
   // eg. handleRoomPress(room) => { navigation.navigate(room)}
   const handleCreateRoomPress = () => {
-    navigation.navigate("CreateRoom");
+    navigation.navigate("Create Room");
   };
   const handleEnterRoomPress = () => {
-    navigation.navigate("EnterRoom");
+    navigation.navigate("Enter Room");
   };
 
   return (
