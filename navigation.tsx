@@ -4,6 +4,8 @@ import { createAppContainer } from "react-navigation";
 import CreateEnterRoom from "./pages/createEnterRoom/CreateEnterRoom";
 import CreateRoom from "./pages/createRoom/CreateRoom";
 import EnterRoom from "./pages/enterRoom/EnterRoom";
+import RoomLobbyOwner from "./pages/RoomLobby/RoomLobbyOwner";
+import RoomLobbyGuest from "./pages/RoomLobby/RoomLobbyGuest";
 
 const MainStack = createNativeStackNavigator<TopNavigatorParamsList>();
 const MainNavigator: React.FC = () => {
@@ -14,6 +16,8 @@ const MainNavigator: React.FC = () => {
       <Screen name="Home" component={CreateEnterRoom} />
       <Screen name="Create Room" component={CreateRoom} />
       <Screen name="Enter Room" component={EnterRoom} />
+      <Screen name="Room Lobby (Owner)" component={RoomLobbyOwner} />
+      <Screen name="Room Lobby (Guest)" component={RoomLobbyGuest} />
     </Navigator>
   );
 };
