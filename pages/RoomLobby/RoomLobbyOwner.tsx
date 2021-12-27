@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import io from "socket.io-client";
+import socket from "../../socket";
 
 type Props = {
   navigation: any;
@@ -9,31 +9,36 @@ type Props = {
 const RoomLobbyOwner = ({ route, navigation }): Props => {
   // can we abstract this and take the event as a function parameter?
   // eg. handleRoomPress(room) => { navigation.navigate(room)
-  const socket = io("http://10.100.26.6:6021");
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    // setSocket(io("http://10.100.26.6:6021"));
+    // setSocket(io("http://10.0.0.67:6021"));
     socket.emit("join", {
-      username: "Joseph",
+      username: route.params.userId,
       roomId: route.params.roomId,
     });
     socket.on("user joined", (newUser) => {
       console.log("new user", newUser);
-      setUsers([...users, newUser]);
+      setUsers((prev) => [...prev, newUser]);
     });
   }, []);
+
+  const handleNext = () => {
+    console.log("go next fff20");
+    navigation.navigate("Search");
+  };
 
   return (
     <View>
       <Text>Room ID: {route.params.roomId}</Text>
-      {users.map((user) => {
+      {users.map((user, i) => {
         console.log("NEW USER", user);
         /*
         KEY NEEDS TO BE FIXED (userID?)
         */
-        return <Text key={user}>{user}</Text>;
+        return <Text key={i}>{user}</Text>;
       })}
+      <Button title="Next" onPress={handleNext} />
     </View>
   );
 };

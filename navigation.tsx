@@ -6,6 +6,7 @@ import CreateRoom from "./pages/createRoom/CreateRoom";
 import EnterRoom from "./pages/enterRoom/EnterRoom";
 import RoomLobbyOwner from "./pages/RoomLobby/RoomLobbyOwner";
 import RoomLobbyGuest from "./pages/RoomLobby/RoomLobbyGuest";
+import Search from "./pages/search/Search";
 
 const MainStack = createNativeStackNavigator<TopNavigatorParamsList>();
 const MainNavigator: React.FC = () => {
@@ -18,6 +19,7 @@ const MainNavigator: React.FC = () => {
       <Screen name="Enter Room" component={EnterRoom} />
       <Screen name="Room Lobby (Owner)" component={RoomLobbyOwner} />
       <Screen name="Room Lobby (Guest)" component={RoomLobbyGuest} />
+      <Screen name="Search" component={Search} />
     </Navigator>
   );
 };
