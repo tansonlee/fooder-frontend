@@ -14,7 +14,8 @@ const RoomLobbyOwner = ({ route, navigation }): Props => {
   useEffect(() => {
     // setSocket(io("http://10.0.0.67:6021"));
     socket.emit("join", {
-      username: route.params.userId,
+      username: route.params.username,
+      userId: route.params.userId,
       roomId: route.params.roomId,
     });
     socket.on("user joined", (newUser) => {
