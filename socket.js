@@ -1,5 +1,6 @@
 import io from "socket.io-client";
+import { ip } from "./env.js";
 
-const socket = io("http://10.0.0.67:6021");
+const socket = io(`http://${ip}:6021`);
 
 export default socket;
