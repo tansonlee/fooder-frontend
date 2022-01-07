@@ -9,12 +9,12 @@ const Restaurant = (props) => {
 
   const onSwipeLeft = (gestureState) => {
     console.log("You swiped left!");
-    props.swipeNext();
+    props.swipeNext(true);
   };
 
   const onSwipeRight = (gestureState) => {
     console.log("You swiped right!");
-    props.swipeNext();
+    props.swipeNext(false);
   };
   // if (!props.name) {
   //   return <View></View>;

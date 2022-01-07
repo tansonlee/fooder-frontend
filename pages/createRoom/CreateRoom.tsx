@@ -21,7 +21,6 @@ const CreateRoom: React.FC = ({ navigation }) => {
       const result = await axios.post(endpoint, { username: username });
       console.log("username", username, result.data);
       navigation.navigate("Room Lobby (Owner)", {
-        userId: result.data.userId,
         username: username,
         roomId: result.data.roomId,
       });
