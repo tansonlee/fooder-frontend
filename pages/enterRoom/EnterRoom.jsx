@@ -7,29 +7,16 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import axios from "axios";
 
-const EnterRoom: React.FC = ({ navigation }) => {
+const EnterRoom = ({ navigation }) => {
   const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState("");
 
   const handleSubmit = async () => {
-    console.log("clicked!");
-    const endpoint = `http://10.0.0.67:6021`;
-    console.log("ep", endpoint);
-    try {
-      const result = await axios.post(`${endpoint}/${roomId}`, {
-        username: username,
-      });
-      console.log("roomId", roomId, result.data);
-      navigation.navigate("Room Lobby (Guest)", {
-        userId: result.data.userId,
-        username: username,
-        roomId: result.data.roomId,
-      });
-    } catch (e) {
-      console.log("error", e);
-    }
+    navigation.navigate("Room Lobby (Guest)", {
+      username: username,
+      roomId: roomId,
+    });
   };
 
   return (
