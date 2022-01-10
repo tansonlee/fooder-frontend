@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/navbar/Navbar";
 
 import Home from "./pages/home/Home";
 import CreateRoom from "./pages/createRoom/CreateRoom";
@@ -7,6 +10,7 @@ import EnterRoom from "./pages/enterRoom/EnterRoom";
 import RoomLobby from "./pages/roomLobby/RoomLobby";
 import Search from "./pages/search/Search";
 import Matches from "./pages/matches/Matches";
+import About from "./pages/about/About";
 
 const App = () => {
 	const [isOwner, setIsOwner] = useState(false);
@@ -15,6 +19,7 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
+			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home setIsOwner={setIsOwner} />} />
 				<Route path="/create-room" element={<CreateRoom />} />
@@ -38,6 +43,8 @@ const App = () => {
 					path="/matches"
 					element={<Matches matchedRestaurants={matchedRestaurants} />}
 				/>
+
+				<Route path="/about" element={<About />} />
 			</Routes>
 		</BrowserRouter>
 	);
