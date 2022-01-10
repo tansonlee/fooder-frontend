@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 
-const CreateEnterRoom = ({ navigation, setIsOwner }) => {
+const Home = ({ navigation, setIsOwner }) => {
 	const handleCreateRoomPress = () => {
 		setIsOwner(true);
 		navigation.navigate("Create Room");
@@ -13,6 +13,10 @@ const CreateEnterRoom = ({ navigation, setIsOwner }) => {
 
 	return (
 		<View>
+			<View style={style.header}>
+				<Text style={style.title}>Fooder</Text>
+				<Text style={style.slogan}>Taking the trouble out of deciding where to eat!</Text>
+			</View>
 			<Text>create or enter a room!</Text>
 			<Button title="create a room" onPress={handleCreateRoomPress} />
 			<Button title="enter a room" onPress={handleEnterRoomPress} />
@@ -20,4 +24,21 @@ const CreateEnterRoom = ({ navigation, setIsOwner }) => {
 	);
 };
 
-export default CreateEnterRoom;
+const style = StyleSheet.create({
+	header: {
+		display: "flex",
+		flexDirection: "column",
+		height: "30vh",
+	},
+	title: {
+		textAlign: "center",
+		fontWeight: "bold",
+		fontSize: 30,
+	},
+	slogan: {
+		textAlign: "center",
+		fontSize: 16,
+	},
+});
+
+export default Home;
