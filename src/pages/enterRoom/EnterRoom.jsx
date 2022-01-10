@@ -5,56 +5,63 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 const EnterRoom = () => {
-	const navigate = useNavigate();
-	const [roomId, setRoomId] = useState("");
-	const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const [roomId, setRoomId] = useState("");
+  const [username, setUsername] = useState("");
+  const handleChange = (setValue) => (event) => {
+    setValue(event.target.value);
+  };
 
-	const handleSubmit = async () => {
-		navigate("/room-lobby", {
-			state: {
-				username: username,
-				roomId: roomId,
-			},
-		});
-	};
+  const handleSubmit = async () => {
+    navigate("/room-lobby", {
+      state: {
+        username: username,
+        roomId: roomId,
+      },
+    });
+  };
 
-	return (
-		<div>
-			<Typography variant="h2" gutterBottom component="div">
-				Enter room
-			</Typography>
+  return (
+    <div>
+      <Typography variant="h2" gutterBottom component="div">
+        Enter room
+      </Typography>
 
-			{/* <TextInput
+      {/* <TextInput
 				style={styles.input}
 				value={username}
 				onChangeText={setUsername}
 				placeholder="Username"
 			/> */}
-			<TextField
-				id="outlined-basic"
-				label="Username"
-				variant="username"
-				onChangeText={setUsername}
-			/>
-			{/* <TextInput
+      <TextField
+        id="outlined-basic"
+        label="Username"
+        variant="outlined"
+        value={username}
+        onChange={handleChange(setUsername)}
+        // onChangeText={setUsername}
+      />
+      {/* <TextInput
 				style={styles.input}
 				value={roomId}
 				onChangeText={setRoomId}
 				placeholder="Room ID"
 			/> */}
-			<TextField
-				id="outlined-basic"
-				label="Room ID"
-				variant="RoomId"
-				onChangeText={setRoomId}
-			/>
+      <TextField
+        id="outlined-basic"
+        label="Room ID"
+        variant="outlined"
+        value={roomId}
+        onChange={handleChange(setRoomId)}
+        // onChangeText={setRoomId}
+      />
 
-			{/* <Button title="Submit" onClick={handleSubmit} /> */}
-			<Button variant="contained" onClick={handleSubmit}>
-				Submit
-			</Button>
-		</div>
-	);
+      {/* <Button title="Submit" onClick={handleSubmit} /> */}
+      <Button variant="contained" onClick={handleSubmit}>
+        Submit
+      </Button>
+    </div>
+  );
 };
 
 // const styles = StyleSheet.create({
