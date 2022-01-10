@@ -46,7 +46,9 @@ const Restaurant = props => {
 				{props.rating} ({props.review_count} reviews)
 			</Typography>
 			<Typography variant="p" component="div">
-				<a href={props.url}>View on Yelp</a>
+				<a href={props.url} target="_blank" rel="noopener noreferrer">
+					View on Yelp
+				</a>
 			</Typography>
 			<Button variant="contained" onClick={onSwipeLeft}>
 				Left
