@@ -17,7 +17,11 @@ const MainNavigator = () => {
 
 	return (
 		<Navigator>
-			<Screen name="Home" children={props => <Home setIsOwner={setIsOwner} {...props} />} />
+			<Screen
+				name="Home"
+				exact
+				children={props => <Home setIsOwner={setIsOwner} {...props} />}
+			/>
 			<Screen name="Create Room" children={props => <CreateRoom {...props} />} />
 			<Screen name="Enter Room" children={props => <EnterRoom {...props} />} />
 			<Screen
