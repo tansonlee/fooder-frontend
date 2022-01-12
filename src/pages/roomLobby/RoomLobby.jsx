@@ -19,7 +19,7 @@ import { styled } from "@mui/material/styles";
 import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
 
-const RoomLobby = ({ isOwner, setAllRestaurants }) => {
+const RoomLobby = ({ isOwner, setAllRestaurants, roomId }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [users, setUsers] = useState([]);
@@ -55,30 +55,30 @@ const RoomLobby = ({ isOwner, setAllRestaurants }) => {
       setAllRestaurants(totalRestaurantList);
       navigate("/search");
     });
-  }, [setAllRestaurants]);
+  }, [
+    setAllRestaurants,
+    isOwner,
+    location.state.roomId,
+    location.state.username,
+    navigate,
+  ]);
 
   useEffect(() => {
-    (async () => {
-      if (navigator.geolocation) {
-        console.log(
-          "navigator.geolocation",
-          navigator.geolocation.getCurrentPosition
-        );
-        return navigator.geolocation.getCurrentPosition(async (position) => {
-          console.log("position", position);
-          const response = await axios.get(
-            `${api}/address/${position.coords.latitude},${position.coords.longitude}`
-          );
+    if (!roomId || roomId.length !== 6) {
+      navigate("/");
+    }
+    if (!navigator.geolocation) return;
 
-          console.log("address response", response);
+    return navigator.geolocation.getCurrentPosition(async (position) => {
+      const response = await axios.get(
+        `${api}/address/${position.coords.latitude},${position.coords.longitude}`
+      );
 
-          if (response.data.success) {
-            setLoc(response.data.address);
-          }
-        });
+      if (response.data.success) {
+        setLoc(response.data.address);
       }
-    })();
-  }, []);
+    });
+  }, [navigate, roomId]);
 
   // convert from km to m
   const formatDistance = (distance) => distance * 1000;

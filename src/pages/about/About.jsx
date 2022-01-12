@@ -13,10 +13,10 @@ const About = () => {
 			</p>
 			<p>Contributers:</p>
 			<p>
-				Tanson Lee: <a href="#">GitHub</a>
+				Tanson Lee: <a href="https://google.com">GitHub</a>
 			</p>
 			<p>
-				Joseph Perez: <a href="#">GitHub</a>
+				Joseph Perez: <a href="https://google.com">GitHub</a>
 			</p>
 		</div>
 	);

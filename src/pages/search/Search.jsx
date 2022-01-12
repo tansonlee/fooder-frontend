@@ -4,7 +4,6 @@ import socket from "../../socket";
 import Restaurant from "./Restaurant";
 import Matches from "./Matches";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import UserList from "../../components/UserList";
 import Layout from "../../components/Layout";
@@ -45,7 +44,7 @@ const Search = ({ setMatchedRestaurants, matchedRestaurants, allRestaurants, roo
 			console.log(`matchingRestaurants: ${matchingRestaurants.map(e => e.name)}`);
 			setMatchedRestaurants(matchingRestaurants);
 		});
-	}, [allRestaurants, setMatchedRestaurants]);
+	}, [allRestaurants, setMatchedRestaurants, navigate, roomId]);
 
 	return (
 		<Layout>
