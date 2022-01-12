@@ -13,6 +13,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
+import { Slider } from "@mui/material";
 
 import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
@@ -25,7 +26,11 @@ const RoomLobby = ({ isOwner, setAllRestaurants }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [loc, setLoc] = useState("");
   const [maxDistance, setMaxDistance] = useState(1000);
-  const [prices, setPrices] = useState(""); // "$" or "$, $$" or "$$$$" etc.. (can be 1, 2, 3, and 4)
+  const [prices, setPrices] = useState([1, 2]); // "$" or "$, $$" or "$$$$" etc.. (can be 1, 2, 3, and 4)
+
+  const handleChange = (setValue) => (event) => {
+    setValue(event.target.value);
+  };
 
   useEffect(() => {
     console.log(
@@ -107,6 +112,19 @@ const RoomLobby = ({ isOwner, setAllRestaurants }) => {
     }
   };
 
+  const distanceText = (value) => `${value} km`;
+  const marks = [
+    {
+      value: 1,
+      label: "1 km",
+    },
+    {
+      value: 25,
+      label: "25 km",
+    },
+  ];
+  const priceText = (value) => "$".repeat(value);
+
   return (
     <Layout>
       <Typography variant="p" gutterBottom component="p">
@@ -135,77 +153,99 @@ const RoomLobby = ({ isOwner, setAllRestaurants }) => {
       </div>
       {isOwner ? (
         <div>
-          <Button variant="contained" onClick={() => setOpenDialog(true)}>
+          {/* <Button variant="contained" onClick={() => setOpenDialog(true)}>
             Edit Settings
           </Button>
 
-          <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-            <Box sx={{ p: 4 }}>
-              <Typography variant="h3" component="h3">
-                Adjust Settings
-              </Typography>
-              <Typography variant="h5" component="h5">
-                Location:{" "}
-              </Typography>
-              <Typography component="div">
-                <Box sx={{ fontStyle: "italic", m: 1 }}>
-                  For example: "New York City", "NYC", "350 5th Ave, New York,
-                  NY 10118"
-                </Box>
-              </Typography>
-              <TextField
-                sx={{ width: "100%" }}
-                id="outlined-name"
-                required
-                label="Location"
-                value={loc}
-                onChange={(e) => setLoc(e.target.value)}
-              />
-              <Typography variant="h5" component="h5">
-                Max Distance in meters:{" "}
-              </Typography>
-              <TextField
-                sx={{ width: "100%" }}
-                id="outlined-name"
-                label="Max Distance"
-                value={maxDistance}
-                onChange={(e) => setMaxDistance(e.target.value)}
-              />
-              <Typography variant="h5" component="h5">
-                Prices:
-              </Typography>
-              <FormGroup>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    p: 1,
-                    m: 1,
-                    bgcolor: "background.paper",
-                    borderRadius: 1,
-                  }}>
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(1)} />}
-                    label="$"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(2)} />}
-                    label="$$"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(3)} />}
-                    label="$$$"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(4)} />}
-                    label="$$$$"
-                  />
-                </Box>
-              </FormGroup>
-              <Button onClick={() => setOpenDialog(false)}>Save & Close</Button>
-            </Box>
-          </Dialog>
+          <Dialog open={openDialog} onClose={() => setOpenDialog(false)}> */}
+          <Box sx={{ p: 4 }}>
+            <Typography variant="h3" component="h3">
+              Adjust Settings
+            </Typography>
+            <Typography variant="h5" component="h5">
+              Location:{" "}
+            </Typography>
+            <Typography component="div">
+              <Box sx={{ fontStyle: "italic", m: 1 }}>
+                For example: "New York City", "NYC", "350 5th Ave, New York, NY
+                10118"
+              </Box>
+            </Typography>
+            <TextField
+              sx={{ width: "100%" }}
+              id="outlined-name"
+              required
+              label="Location"
+              value={loc}
+              onChange={(e) => setLoc(e.target.value)}
+            />
+            <Typography variant="h5" component="h5">
+              Max Distance in meters:{" "}
+            </Typography>
+            <TextField
+              sx={{ width: "100%" }}
+              id="outlined-name"
+              label="Max Distance"
+              value={maxDistance}
+              onChange={(e) => setMaxDistance(e.target.value)}
+            />
+            <Slider
+              aria-label="Max Distance (km)"
+              defaultValue={5}
+              getAriaValueText={distanceText}
+              valueLabelFormat={distanceText}
+              valueLabelDisplay="auto"
+              step={1}
+              marks={marks}
+              min={1}
+              max={25}
+            />
+            <Slider
+              getAriaLabel={() => "Price range"}
+              value={prices}
+              onChange={setPrices}
+              getAriaValueText={priceText}
+              valueLabelFormat={priceText}
+              valueLabelDisplay="auto"
+              step={1}
+              min={1}
+              max={4}
+            />
+            <Typography variant="h5" component="h5">
+              Prices:
+            </Typography>
+            <FormGroup>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  p: 1,
+                  m: 1,
+                  bgcolor: "background.paper",
+                  borderRadius: 1,
+                }}>
+                <FormControlLabel
+                  control={<Checkbox onChange={togglePrice(1)} />}
+                  label="$"
+                />
+                <FormControlLabel
+                  control={<Checkbox onChange={togglePrice(2)} />}
+                  label="$$"
+                />
+                <FormControlLabel
+                  control={<Checkbox onChange={togglePrice(3)} />}
+                  label="$$$"
+                />
+                <FormControlLabel
+                  control={<Checkbox onChange={togglePrice(4)} />}
+                  label="$$$$"
+                />
+              </Box>
+            </FormGroup>
+            <Button onClick={() => setOpenDialog(false)}>Save & Close</Button>
+          </Box>
+          {/* </Dialog> */}
           <Button variant="contained" onClick={handleNext}>
             Next
           </Button>
