@@ -13,7 +13,8 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
-import { Slider } from "@mui/material";
+import Slider, { SliderThumb } from "@mui/material/Slider";
+import { styled } from "@mui/material/styles";
 
 import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
@@ -79,41 +80,57 @@ const RoomLobby = ({ isOwner, setAllRestaurants }) => {
     })();
   }, []);
 
+  // convert from km to m
+  const formatDistance = (distance) => distance * 1000;
+
+  const formatPrices = (prices) => {
+    if (prices[0] == prices[1]) {
+      return prices[0];
+    } else {
+      let priceArray = [];
+      for (let i = prices[0]; i <= prices[1]; ++i) {
+        priceArray.push(i);
+      }
+      return priceArray.join(", ");
+    }
+  };
+
   const handleNext = () => {
     const location = "Waterloo, Ontario";
     console.log(`owner clicked next`);
     console.log(`emit GET_RESTAURANTS: location=${location}`);
     socket.emit("GET_RESTAURANTS", {
       location: loc,
-      radius: maxDistance,
-      price: prices.split(", ").map((p) => p.length),
+      radius: formatDistance(maxDistance),
+      price: formatPrices(prices),
     });
   };
 
   // price is 1, 2, 3, or 4
-  const togglePrice = (price) => (e) => {
-    if (prices.split(", ").filter((p) => p.length === price).length > 0) {
-      console.log("removing price", { price, prices });
-      setPrices(
-        prices
-          .split(", ")
-          .filter((p) => p.length !== price)
-          .filter((p) => p.length !== 0) // remove the empty string
-          .join(", ")
-      );
-    } else {
-      console.log("adding price", { price, prices });
-      setPrices(
-        [...prices.split(", "), "$".repeat(price)]
-          .filter((p) => p.length !== 0) // remove the empty string
-          .sort((a, b) => a.length - b.length)
-          .join(", ")
-      );
-    }
-  };
+  const togglePrice = (price) => () => {};
+  // const togglePrice = (price) => (e) => {
+  //   if (prices.split(", ").filter((p) => p.length === price).length > 0) {
+  //     console.log("removing price", { price, prices });
+  //     setPrices(
+  //       prices
+  //         .split(", ")
+  //         .filter((p) => p.length !== price)
+  //         .filter((p) => p.length !== 0) // remove the empty string
+  //         .join(", ")
+  //     );
+  //   } else {
+  //     console.log("adding price", { price, prices });
+  //     setPrices(
+  //       [...prices.split(", "), "$".repeat(price)]
+  //         .filter((p) => p.length !== 0) // remove the empty string
+  //         .sort((a, b) => a.length - b.length)
+  //         .join(", ")
+  //     );
+  //   }
+  // };
 
   const distanceText = (value) => `${value} km`;
-  const marks = [
+  const distanceMarks = [
     {
       value: 1,
       label: "1 km",
@@ -123,7 +140,26 @@ const RoomLobby = ({ isOwner, setAllRestaurants }) => {
       label: "25 km",
     },
   ];
+
   const priceText = (value) => "$".repeat(value);
+  const priceMarks = [
+    {
+      value: 1,
+      label: "$",
+    },
+    {
+      value: 2,
+      label: "$$",
+    },
+    {
+      value: 3,
+      label: "$$$",
+    },
+    {
+      value: 4,
+      label: "$$$$",
+    },
+  ];
 
   return (
     <Layout>
@@ -148,104 +184,77 @@ const RoomLobby = ({ isOwner, setAllRestaurants }) => {
           Max Distance: {maxDistance ? maxDistance : "Not set"}
         </Typography>
         <Typography variant="p" component="p">
-          Prices: {prices.length !== 0 ? prices : "Not set"}
+          Prices: {prices.length !== 0 ? formatPrices(prices) : "Not set"}
         </Typography>
       </div>
-      {isOwner ? (
+      {true ? (
         <div>
-          <Button variant="contained" onClick={() => setOpenDialog(true)}>
+          {/* <Button variant="contained" onClick={() => setOpenDialog(true)}>
             Edit Settings
-          </Button>
+          </Button> */}
 
-          <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-            <Box sx={{ p: 4 }}>
-              <Typography variant="h3" component="h3">
-                Adjust Settings
-              </Typography>
-              <Typography variant="h5" component="h5">
-                Location:{" "}
-              </Typography>
-              <Typography component="div">
-                <Box sx={{ fontStyle: "italic", m: 1 }}>
-                  For example: "New York City", "NYC", "350 5th Ave, New York,
-                  NY 10118"
-                </Box>
-              </Typography>
-              <TextField
-                sx={{ width: "100%" }}
-                id="outlined-name"
-                required
-                label="Location"
-                value={loc}
-                onChange={(e) => setLoc(e.target.value)}
-              />
-              <Typography variant="h5" component="h5">
-                Max Distance in meters:{" "}
-              </Typography>
-              <TextField
-                sx={{ width: "100%" }}
-                id="outlined-name"
-                label="Max Distance"
-                value={maxDistance}
-                onChange={(e) => setMaxDistance(e.target.value)}
-              />
-              <Slider
-                aria-label="Max Distance (km)"
-                defaultValue={5}
-                getAriaValueText={distanceText}
-                valueLabelFormat={distanceText}
-                valueLabelDisplay="auto"
-                step={1}
-                marks={marks}
-                min={1}
-                max={25}
-              />
-              <Slider
-                getAriaLabel={() => "Price range"}
-                value={prices}
-                onChange={setPrices}
-                getAriaValueText={priceText}
-                valueLabelFormat={priceText}
-                valueLabelDisplay="auto"
-                step={1}
-                min={1}
-                max={4}
-              />
-              <Typography variant="h5" component="h5">
-                Prices:
-              </Typography>
-              <FormGroup>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    p: 1,
-                    m: 1,
-                    bgcolor: "background.paper",
-                    borderRadius: 1,
-                  }}>
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(1)} />}
-                    label="$"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(2)} />}
-                    label="$$"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(3)} />}
-                    label="$$$"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox onChange={togglePrice(4)} />}
-                    label="$$$$"
-                  />
-                </Box>
-              </FormGroup>
-              <Button onClick={() => setOpenDialog(false)}>Save & Close</Button>
-            </Box>
-          </Dialog>
+          {/* <Dialog open={openDialog} onClose={() => setOpenDialog(false)}> */}
+          <Box sx={{ p: 4 }}>
+            <Typography variant="h4" component="h4">
+              Adjust Settings
+            </Typography>
+            <Typography variant="h5" component="h5">
+              Location:{" "}
+            </Typography>
+            <Typography component="div">
+              <Box sx={{ fontStyle: "italic", m: 1 }}>
+                For example: "New York City", "NYC", "350 5th Ave, New York, NY
+                10118"
+              </Box>
+            </Typography>
+            <TextField
+              sx={{ width: "100%" }}
+              id="outlined-name"
+              required
+              label="Location"
+              value={loc}
+              onChange={(e) => setLoc(e.target.value)}
+            />
+            <Typography variant="h5" component="h5">
+              Max Distance in meters:{" "}
+            </Typography>
+            <TextField
+              sx={{ width: "100%" }}
+              id="outlined-name"
+              label="Max Distance"
+              value={maxDistance}
+              onChange={(e) => setMaxDistance(e.target.value)}
+            />
+            <Slider
+              aria-label="Max Distance (km)"
+              defaultValue={5}
+              onChange={handleChange(setMaxDistance)}
+              getAriaValueText={distanceText}
+              valueLabelFormat={distanceText}
+              valueLabelDisplay="auto"
+              step={1}
+              marks={distanceMarks}
+              min={1}
+              max={25}
+            />
+            <Typography variant="h5" component="h5">
+              Price Range:
+            </Typography>
+            <Slider
+              getAriaLabel={() => "Price range"}
+              value={prices}
+              onChange={handleChange(setPrices)}
+              getAriaValueText={priceText}
+              valueLabelFormat={priceText}
+              valueLabelDisplay="auto"
+              marks={priceMarks}
+              min={1}
+              max={4}
+              sx={{ color: "secondary" }}
+            />
+            {/* <Button onClick={() => setOpenDialog(false)}>Save & Close</Button> */}
+          </Box>
+          {/* </Dialog> */}
           <Button variant="contained" onClick={handleNext}>
             Next
           </Button>
