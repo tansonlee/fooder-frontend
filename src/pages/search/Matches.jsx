@@ -52,7 +52,7 @@ const Matches = (props) => {
 
   return (
     <div>
-      <Typography variant="h4" component="h4">
+      <Typography variant="h6" component="h4" align="center">
         Matches
       </Typography>
       {props.matchedRestaurants.map((rest, index) => {
