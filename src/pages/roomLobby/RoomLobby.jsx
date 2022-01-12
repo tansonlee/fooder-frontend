@@ -15,6 +15,8 @@ import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import Slider, { SliderThumb } from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
+import { FormHelperText } from "@mui/material";
+import Stack from "@mui/material/Stack";
 
 import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
@@ -163,107 +165,124 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId }) => {
 
   return (
     <Layout>
-      <Typography variant="p" gutterBottom component="p">
-        Room ID: {location.state.roomId}
-      </Typography>
-      {/* <Text>Room ID: {location.state.roomId}<Typography/> */}
-      {isOwner ? (
-        <Typography variant="p" component="p">
-          You are the owner
-        </Typography>
-      ) : null}
-      <UserList users={users} myUserId={socket.id} />
-      <div>
-        <Typography variant="p" component="p">
-          Current settings
-        </Typography>
-        <Typography variant="p" component="p">
-          Location: {loc ? loc : "Not set"}
-        </Typography>
-        <Typography variant="p" component="p">
-          Max Distance: {maxDistance ? maxDistance : "Not set"}
-        </Typography>
-        <Typography variant="p" component="p">
-          Prices: {prices.length !== 0 ? formatPrices(prices) : "Not set"}
-        </Typography>
-      </div>
-      {true ? (
-        <div>
-          {/* <Button variant="contained" onClick={() => setOpenDialog(true)}>
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        height="100%">
+        <Box
+          sx={{
+            borderRadius: "2%",
+            p: 3,
+            mt: "-5vw",
+          }}>
+          <Typography variant="p" gutterBottom component="p">
+            Room ID: {location.state.roomId}
+          </Typography>
+          {/* <Text>Room ID: {location.state.roomId}<Typography/> */}
+          {isOwner ? (
+            <Typography variant="p" component="p">
+              You are the owner
+            </Typography>
+          ) : null}
+          <UserList users={users} myUserId={socket.id} />
+          <Box>
+            <Typography variant="p" component="p">
+              Current settings
+            </Typography>
+            <Typography variant="p" component="p">
+              Location: {loc ? loc : "Not set"}
+            </Typography>
+            <Typography variant="p" component="p">
+              Max Distance: {maxDistance ? maxDistance : "Not set"}
+            </Typography>
+            <Typography variant="p" component="p">
+              Prices: {prices.length !== 0 ? formatPrices(prices) : "Not set"}
+            </Typography>
+          </Box>
+          {true ? (
+            <Box>
+              {/* <Button variant="contained" onClick={() => setOpenDialog(true)}>
             Edit Settings
           </Button> */}
 
-          {/* <Dialog open={openDialog} onClose={() => setOpenDialog(false)}> */}
-          <Box sx={{ p: 4 }}>
-            <Typography variant="h4" component="h4">
-              Adjust Settings
-            </Typography>
-            <Typography variant="h5" component="h5">
-              Location:{" "}
-            </Typography>
-            <Typography component="div">
+              {/* <Dialog open={openDialog} onClose={() => setOpenDialog(false)}> */}
+              <Box sx={{ p: 4 }}>
+                <Typography variant="h6" component="h6">
+                  Search Settings
+                </Typography>
+                <Box sx={{ p: 1 }}>
+                  {/* <Typography variant="subtitle1" component="h5">
+                    Location:{" "}
+                  </Typography> */}
+                  {/* <Typography component="Box">
               <Box sx={{ fontStyle: "italic", m: 1 }}>
-                For example: "New York City", "NYC", "350 5th Ave, New York, NY
-                10118"
+              For example: "New York City", "NYC", "350 5th Ave, New York, NY
+              10118"
               </Box>
-            </Typography>
-            <TextField
-              sx={{ width: "100%" }}
-              id="outlined-name"
-              required
-              label="Location"
-              value={loc}
-              onChange={(e) => setLoc(e.target.value)}
-            />
-            <Typography variant="h5" component="h5">
-              Max Distance in meters:{" "}
-            </Typography>
-            <TextField
-              sx={{ width: "100%" }}
-              id="outlined-name"
-              label="Max Distance"
-              value={maxDistance}
-              onChange={(e) => setMaxDistance(e.target.value)}
-            />
-            <Slider
-              aria-label="Max Distance (km)"
-              defaultValue={5}
-              onChange={handleChange(setMaxDistance)}
-              getAriaValueText={distanceText}
-              valueLabelFormat={distanceText}
-              valueLabelDisplay="auto"
-              step={1}
-              marks={distanceMarks}
-              min={1}
-              max={25}
-            />
-            <Typography variant="h5" component="h5">
-              Price Range:
-            </Typography>
-            <Slider
-              getAriaLabel={() => "Price range"}
-              value={prices}
-              onChange={handleChange(setPrices)}
-              getAriaValueText={priceText}
-              valueLabelFormat={priceText}
-              valueLabelDisplay="auto"
-              marks={priceMarks}
-              min={1}
-              max={4}
-              sx={{ color: "secondary" }}
-            />
-            {/* <Button onClick={() => setOpenDialog(false)}>Save & Close</Button> */}
-          </Box>
-          {/* </Dialog> */}
-          <Button variant="contained" onClick={handleNext}>
-            Next
-          </Button>
-        </div>
-      ) : (
-        <Button variant="contained" disabled>
-          Waiting for owner...
-        </Button>
-      )}
+            </Typography> */}
+                  <TextField
+                    sx={{ width: "100%" }}
+                    id="outlined-name"
+                    required
+                    label="Location"
+                    value={loc}
+                    onChange={(e) => setLoc(e.target.value)}
+                  />
+                  <FormHelperText sx={{ pl: 1 }} id="component-helper-text">
+                    For example: "New York City", "NYC", "350 5th Ave, New York,
+                    NY 10118"
+                  </FormHelperText>
+                </Box>
+                <Box sx={{ p: 1 }}>
+                  <Typography variant="subtitle1" component="h5">
+                    Max Distance in meters:{" "}
+                  </Typography>
+
+                  <Slider
+                    aria-label="Max Distance (km)"
+                    defaultValue={5}
+                    onChange={handleChange(setMaxDistance)}
+                    getAriaValueText={distanceText}
+                    valueLabelFormat={distanceText}
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks={distanceMarks}
+                    min={1}
+                    max={25}
+                  />
+                </Box>
+                <Box sx={{ p: 1 }}>
+                  <Typography variant="subtitle1" component="h5">
+                    Price Range:
+                  </Typography>
+                  <Slider
+                    getAriaLabel={() => "Price range"}
+                    value={prices}
+                    onChange={handleChange(setPrices)}
+                    getAriaValueText={priceText}
+                    valueLabelFormat={priceText}
+                    valueLabelDisplay="auto"
+                    marks={priceMarks}
+                    min={1}
+                    max={4}
+                    sx={{ color: "secondary" }}
+                  />
+                </Box>
+                {/* <Button onClick={() => setOpenDialog(false)}>Save & Close</Button> */}
+              </Box>
+              {/* </Dialog> */}
+              <Button variant="contained" onClick={handleNext}>
+                Next
+              </Button>
+            </Box>
+          ) : (
+            <Button variant="contained" disabled>
+              Waiting for owner...
+            </Button>
+          )}
+        </Box>
+      </Stack>
     </Layout>
   );
 };
