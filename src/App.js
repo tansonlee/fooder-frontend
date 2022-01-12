@@ -36,7 +36,11 @@ const App = () => {
 					<Route
 						path="/room-lobby"
 						element={
-							<RoomLobby isOwner={isOwner} setAllRestaurants={setAllRestaurants} />
+							<RoomLobby
+								isOwner={isOwner}
+								setAllRestaurants={setAllRestaurants}
+								roomId={roomId}
+							/>
 						}
 					/>
 					<Route
