@@ -15,53 +15,52 @@ import About from "./pages/about/About";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const App = () => {
-  const [isOwner, setIsOwner] = useState(false);
-  const [matchedRestaurants, setMatchedRestaurants] = useState([]);
-  const [allRestaurants, setAllRestaurants] = useState([]);
+	const [isOwner, setIsOwner] = useState(false);
+	const [matchedRestaurants, setMatchedRestaurants] = useState([]);
+	const [allRestaurants, setAllRestaurants] = useState([]);
+	const [roomId, setRoomId] = useState(null);
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
+	const darkTheme = createTheme({
+		palette: {
+			mode: "dark",
+		},
+	});
 
-  return (
-    <BrowserRouter>
-      <ThemeProvider theme={darkTheme}>
-        <Routes>
-          <Route path="/" element={<Home setIsOwner={setIsOwner} />} />
-          <Route path="/create-room" element={<CreateRoom />} />
-          <Route path="enter-room" element={<EnterRoom />} />
-          <Route
-            path="/room-lobby"
-            element={
-              <RoomLobby
-                isOwner={isOwner}
-                setAllRestaurants={setAllRestaurants}
-              />
-            }
-          />
-          <Route
-            path="/search"
-            element={
-              <Search
-                setMatchedRestaurants={setMatchedRestaurants}
-                matchedRestaurants={matchedRestaurants}
-                allRestaurants={allRestaurants}
-              />
-            }
-          />
+	return (
+		<BrowserRouter>
+			<ThemeProvider theme={darkTheme}>
+				<Routes>
+					<Route path="/" element={<Home setIsOwner={setIsOwner} />} />
+					<Route path="/create-room" element={<CreateRoom setRoomId={setRoomId} />} />
+					<Route path="/enter-room" element={<EnterRoom setRoomId={setRoomId} />} />
+					<Route
+						path="/room-lobby"
+						element={
+							<RoomLobby isOwner={isOwner} setAllRestaurants={setAllRestaurants} />
+						}
+					/>
+					<Route
+						path="/search"
+						element={
+							<Search
+								setMatchedRestaurants={setMatchedRestaurants}
+								matchedRestaurants={matchedRestaurants}
+								allRestaurants={allRestaurants}
+								roomId={roomId}
+							/>
+						}
+					/>
 
-          <Route
-            path="/matches"
-            element={<Matches matchedRestaurants={matchedRestaurants} />}
-          />
+					<Route
+						path="/matches"
+						element={<Matches matchedRestaurants={matchedRestaurants} />}
+					/>
 
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </ThemeProvider>
-    </BrowserRouter>
-  );
+					<Route path="/about" element={<About />} />
+				</Routes>
+			</ThemeProvider>
+		</BrowserRouter>
+	);
 };
 
 export default App;

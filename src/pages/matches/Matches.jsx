@@ -30,12 +30,6 @@ const Matches = ({ matchedRestaurants }) => {
 			>
 				Back to Search
 			</Button>
-			{/* <Button
-				title="Back to Search"
-				onClick={() => {
-					navigate("/search");
-				}}
-			/> */}
 		</div>
 	);
 };
