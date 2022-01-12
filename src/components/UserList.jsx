@@ -29,7 +29,7 @@ const UserList = (props) => {
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
       aria-label="contacts">
       {props.users.map((user) => (
-        <ListItem disablePadding id={user.userId}>
+        <ListItem disablePadding key={user.userId}>
           <ListItem>
             <ListItemText
               primary={user.username}
