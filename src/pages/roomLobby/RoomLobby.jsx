@@ -21,14 +21,14 @@ import Stack from "@mui/material/Stack";
 import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
 
-const RoomLobby = ({ isOwner, setAllRestaurants, roomId }) => {
+const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [users, setUsers] = useState([]);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [loc, setLoc] = useState("");
-  const [maxDistance, setMaxDistance] = useState(1000);
+  const [maxDistance, setMaxDistance] = useState(5);
   const [prices, setPrices] = useState([1, 2]); // "$" or "$, $$" or "$$$$" etc.. (can be 1, 2, 3, and 4)
 
   const handleChange = (setValue) => (event) => {
@@ -47,6 +47,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId }) => {
     socket.on("NEW_ROOM_USERS", ({ users: allUsers }) => {
       console.log(`on NEW_ROOM_USERS: newUsers=${allUsers}`);
       setUsers(allUsers);
+      setAppUsers(allUsers);
       console.log("users: ", allUsers);
     });
     socket.on("FOUND_RESTAURANTS", (totalRestaurantList) => {
@@ -55,7 +56,9 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId }) => {
       );
       console.log(`going to the Search page`);
       setAllRestaurants(totalRestaurantList);
-      navigate("/search");
+      navigate("/search", {
+        users: users,
+      });
     });
   }, [
     setAllRestaurants,
