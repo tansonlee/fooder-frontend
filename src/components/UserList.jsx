@@ -31,7 +31,7 @@ const UserList = props => {
 			aria-label="contacts"
 		>
 			{props.users.map(user => (
-				<ListItem disablePadding id={user.userId}>
+				<ListItem disablePadding key={user.userId}>
 					<ListItemButton>
 						<ListItemText primary={user.username} secondary={getSecondaryText(user)} />
 					</ListItemButton>
