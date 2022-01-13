@@ -7,11 +7,16 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import UserList from "../../components/UserList";
 import Layout from "../../components/Layout";
+import BottomNavbar from "../../components/BottomNavbar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
+
+const MATCHES_TAB = 0;
+const RESTAURANTS_TAB = 1;
+const USERS_TAB = 2;
 
 const Search = ({
   setMatchedRestaurants,
@@ -22,6 +27,7 @@ const Search = ({
 }) => {
   const navigate = useNavigate();
 
+  const [tab, setTab] = useState(RESTAURANTS_TAB);
   const [restaurantIndex, setRestaurantIndex] = useState(0);
 
   const acceptRestaurant = () => {
@@ -29,9 +35,14 @@ const Search = ({
       restaurantId: allRestaurants[restaurantIndex].id,
     });
   };
-  const matchesTab = 0;
-  const restaurantTab = 12;
-  const usersTab = 0;
+
+  const canDisplay = (displayTab) => {
+    if (displayTab === tab) {
+      return "block";
+    } else {
+      return "none";
+    }
+  };
 
   const swipeNext = (isAccept) => {
     if (restaurantIndex === allRestaurants.length - 1) {
@@ -68,7 +79,16 @@ const Search = ({
         </Typography>
       ) : (
         <Grid container spacing={0} sx={{ p: 4 }}>
-          <Grid item sm={matchesTab} md={4}>
+          <Grid
+            item
+            sm={12}
+            md={4}
+            sx={{
+              display: {
+                xs: canDisplay(MATCHES_TAB),
+                md: "block",
+              },
+            }}>
             <Matches matchedRestaurants={matchedRestaurants} />
             {/* {matchedRestaurants.map((rest, index) => {
               return (
@@ -80,7 +100,16 @@ const Search = ({
               );
             })} */}
           </Grid>
-          <Grid item sm={restaurantTab} md={4}>
+          <Grid
+            item
+            sm={12}
+            md={4}
+            sx={{
+              display: {
+                xs: canDisplay(RESTAURANTS_TAB),
+                md: "block",
+              },
+            }}>
             <Restaurant
               {...allRestaurants[restaurantIndex]}
               swipeNext={swipeNext}
@@ -123,11 +152,24 @@ const Search = ({
               </IconButton>
             </Box>
           </Grid>
-          <Grid item sm={usersTab} md={4}>
+          <Grid
+            item
+            sm={12}
+            md={4}
+            sx={{
+              pl: 8,
+              pr: 8,
+              display: {
+                xs: canDisplay(USERS_TAB),
+                md: "block",
+              },
+            }}
+            align="center">
             <UserList users={users} />
           </Grid>
         </Grid>
       )}
+      <BottomNavbar tab={tab} setTab={setTab} />
     </Layout>
   );
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { Box } from "@mui/material";
 import { ListSubheader } from "@mui/material";
 
 const UserList = (props) => {
@@ -23,28 +23,28 @@ const UserList = (props) => {
   };
 
   return (
-    <List
-      subheader={<ListSubheader>Users in the room</ListSubheader>}
-      sx={{
-        width: "100%",
-        mt: 2,
-        maxWidth: 360,
-        bgcolor: "background.paper",
-        borderRadius: 1,
-        borderWidth: 5,
-        borderColor: "white",
-      }}
-      aria-label="contacts">
-      {props.users.map((user) => (
-        <ListItem sx={{ pt: 0 }} key={user.userId}>
-          <ListItemText
-            primary={user.username}
-            secondary={getSecondaryText(user)}
-          />
-        </ListItem>
-      ))}
-    </List>
-    // </Box>
+    <Box>
+      <List
+        subheader={<ListSubheader>Users in the room</ListSubheader>}
+        sx={{
+          width: "100%",
+          mt: 2,
+          bgcolor: "background.paper",
+          borderRadius: 1,
+          borderWidth: 5,
+          borderColor: "white",
+        }}
+        aria-label="contacts">
+        {props.users.map((user) => (
+          <ListItem sx={{ pt: 0 }} key={user.userId}>
+            <ListItemText
+              primary={user.username}
+              secondary={getSecondaryText(user)}
+            />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 };
 

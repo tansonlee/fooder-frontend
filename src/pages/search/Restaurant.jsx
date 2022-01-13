@@ -19,7 +19,16 @@ const Restaurant = (props) => {
       <Typography variant="h4" component="h6">
         {props.name}
       </Typography>
-      <Typography variant="subtitle1" component="h1" color="text.secondary">
+      <Typography
+        variant="subtitle1"
+        component="h1"
+        color="text.secondary"
+        sx={{
+          display: {
+            xs: "none",
+            md: "block",
+          },
+        }}>
         Categories:&nbsp;
         {
           props.categories.map((category) => category.title).join(", ")

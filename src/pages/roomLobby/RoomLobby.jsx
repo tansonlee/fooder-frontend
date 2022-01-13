@@ -171,7 +171,7 @@ const RoomLobby = ({
             variant="h1"
             component="h1"
             sx={{ fontSize: "3rem", marginTop: "1rem", textAlign: "center" }}>
-            Fooder Lobby
+            Room Lobby
           </Typography>
           <Typography
             variant="subtitle1"
@@ -181,17 +181,16 @@ const RoomLobby = ({
             Send your friends the following Room ID
           </Typography>
           <ClipboardCopy copyText={location.state?.roomId} />
-          <UserList users={users} myUserId={socket.id} />
+          <Box>
+            <UserList users={users} myUserId={socket.id} />
+          </Box>
           {isOwner ? (
             <Box>
-              <Box sx={{}}>
+              <Box>
                 <Typography variant="h6" component="h6" sx={{ mt: 2 }}>
                   Search Settings
                 </Typography>
                 <Box sx={{ p: 1 }}>
-                  <Typography variant="subtitle1" component="h5" sx={{ mb: 1 }}>
-                    Location
-                  </Typography>
                   <TextField
                     sx={{ width: "100%" }}
                     id="outlined-name"
@@ -199,6 +198,7 @@ const RoomLobby = ({
                     label="Location"
                     value={loc}
                     onChange={(e) => setLoc(e.target.value)}
+                    color="secondary"
                   />
                   <FormHelperText sx={{ pl: 1 }} id="component-helper-text">
                     "Waterloo, ON", "Toronto", "M5B 2H1"
@@ -220,6 +220,7 @@ const RoomLobby = ({
                     marks={distanceMarks}
                     min={1}
                     max={25}
+                    color="secondary"
                   />
                 </Box>
                 <Box sx={{ p: 1 }}>
@@ -237,30 +238,23 @@ const RoomLobby = ({
                     min={1}
                     max={4}
                     sx={{ color: "secondary" }}
+                    color="secondary"
                   />
                 </Box>
               </Box>
-              <Button
-                variant="contained"
-                // loading={isLoading}
-                onClick={handleNext}>
-                Next
-              </Button>
+              <Box textAlign="center" sx={{ m: 4 }}>
+                <Button
+                  variant="contained"
+                  // color="secondary"
+                  size="large"
+                  // loading={isLoading}
+                  onClick={handleNext}>
+                  Start
+                </Button>
+              </Box>
             </Box>
           ) : (
-            <Box>
-              <Typography variant="p" component="p">
-                Current settings
-              </Typography>
-              <Typography variant="p" component="p">
-                Location: {loc ? loc : "Not set"}
-              </Typography>
-              <Typography variant="p" component="p">
-                Max Distance: {maxDistance ? maxDistance : "Not set"}
-              </Typography>
-              <Typography variant="p" component="p">
-                Prices: {prices.length !== 0 ? formatPrices(prices) : "Not set"}
-              </Typography>
+            <Box textAlign="center" sx={{ m: 4 }}>
               <Button variant="contained" disabled>
                 Waiting for owner...
               </Button>
