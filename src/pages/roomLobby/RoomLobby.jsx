@@ -80,7 +80,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 		}
 		if (!navigator.geolocation) return;
 
-		return navigator.geolocation.getCurrentPosition(async position => {
+		navigator.geolocation.getCurrentPosition(async position => {
 			const response = await axios.get(
 				`${api}/address/${position.coords.latitude},${position.coords.longitude}`
 			);
