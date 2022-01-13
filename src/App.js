@@ -47,6 +47,7 @@ const App = () => {
             element={
               <RoomLobby
                 isOwner={isOwner}
+                setIsOwner={setIsOwner}
                 setAllRestaurants={setAllRestaurants}
                 roomId={roomId}
                 setAppUsers={setAppUsers}

@@ -48,6 +48,13 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers }) => {
       console.log(`on NEW_ROOM_USERS: newUsers=${allUsers}`);
       setUsers(allUsers);
       setAppUsers(allUsers);
+      // check if a new owner is assigned to be me
+      const myUserData = allUsers.find(
+        (user) => user.userId === location.state.userId
+      );
+      if (myUserData && myUserData.isOwner) {
+        setIsOwner(true);
+      }
       console.log("users: ", allUsers);
     });
     socket.on("FOUND_RESTAURANTS", (totalRestaurantList) => {
