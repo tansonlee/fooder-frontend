@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import UserList from "../../components/UserList";
 import Layout from "../../components/Layout";
 import BottomNavbar from "../../components/BottomNavbar";
+import Snackbar from "../../components/Snackbar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
@@ -28,6 +29,7 @@ const Search = ({
   const navigate = useNavigate();
 
   const [tab, setTab] = useState(RESTAURANTS_TAB);
+  const [open, setOpen] = useState(false);
   const [restaurantIndex, setRestaurantIndex] = useState(0);
 
   const acceptRestaurant = () => {
@@ -68,6 +70,7 @@ const Search = ({
         `matchingRestaurants: ${matchingRestaurants.map((e) => e.name)}`
       );
       setMatchedRestaurants(matchingRestaurants);
+      setOpen(true);
     });
   }, [allRestaurants, setMatchedRestaurants, navigate, roomId]);
 
@@ -206,6 +209,7 @@ const Search = ({
           </Grid>
         </Grid>
       )}
+      <Snackbar open={open} setOpen={setOpen} />
       <BottomNavbar tab={tab} setTab={setTab} />
     </Layout>
   );
