@@ -205,7 +205,7 @@ const Search = ({
               },
             }}
             align="center">
-            <UserList users={users} />
+            <UserList users={users} myUserId={socket.id} />
           </Grid>
         </Grid>
       )}
