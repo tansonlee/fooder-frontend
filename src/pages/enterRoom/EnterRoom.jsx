@@ -11,10 +11,14 @@ import { FormHelperText } from "@mui/material";
 import socket from "../../socket";
 import { api } from "../../env";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const EnterRoom = (props) => {
   const navigate = useNavigate();
-  const [roomId, setRoomId] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  let queryId = searchParams.get("roomId");
+  queryId = !queryId ? "" : queryId;
+  const [roomId, setRoomId] = useState(queryId);
   const [username, setUsername] = useState("");
   const [roomError, setRoomError] = useState(false);
   const handleChange = (setValue) => (event) => {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { Typography, Button } from "@mui/material";
+import { endpoint } from "../env";
 
 function ClipboardCopy({ copyText }) {
   const [isCopied, setIsCopied] = useState(false);
@@ -13,8 +14,13 @@ function ClipboardCopy({ copyText }) {
     }
   }
 
+  const toLink = (text) => {
+    return endpoint + "/enter-room?roomId=" + text;
+  };
+
   const handleCopyClick = () => {
-    copyTextToClipboard(copyText)
+    const link = toLink(copyText);
+    copyTextToClipboard(link)
       .then(() => {
         setIsCopied(true);
         setTimeout(() => {
@@ -38,6 +44,7 @@ function ClipboardCopy({ copyText }) {
         justifyContent: "space-between",
         alignItems: "center",
         p: 2,
+        mt: 2,
       }}>
       <Typography
         variant="subtitle1"
@@ -48,7 +55,7 @@ function ClipboardCopy({ copyText }) {
       <Button
         onClick={handleCopyClick}
         sx={{ p: 0, m: 0, display: "inline-block" }}>
-        {isCopied ? "Copied!" : "Copy"}
+        {isCopied ? "Link Copied!" : "Copy Link"}
       </Button>
     </Box>
   );

@@ -127,6 +127,22 @@ const Search = ({
                   },
                   width: "5rem",
                   height: "5rem",
+                  position: {
+                    xs: "fixed",
+                    md: "relative",
+                  },
+                  bottom: {
+                    xs: 70,
+                    md: 0,
+                  },
+                  left: {
+                    xs: 20,
+                    md: 0,
+                  },
+                  opacity: {
+                    xs: 0.85,
+                    md: 1,
+                  },
                 }}
                 variant="contained"
                 onClick={() => {
@@ -143,12 +159,32 @@ const Search = ({
                   },
                   width: "5rem",
                   height: "5rem",
+                  position: {
+                    xs: "fixed",
+                    md: "relative",
+                  },
+                  bottom: {
+                    xs: 70,
+                    md: 0,
+                  },
+                  right: {
+                    xs: 20,
+                    md: 0,
+                  },
+                  opacity: {
+                    xs: 0.85,
+                    md: 1,
+                  },
                 }}
                 variant="contained"
                 onClick={() => {
                   swipeNext(true);
                 }}>
-                <CheckIcon sx={{ fontSize: "2.5rem" }} />
+                <CheckIcon
+                  sx={{
+                    fontSize: "2.5rem",
+                  }}
+                />
               </IconButton>
             </Box>
           </Grid>

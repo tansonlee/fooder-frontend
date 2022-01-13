@@ -3,6 +3,8 @@ import { Paper } from "@mui/material";
 import { BottomNavigation } from "@mui/material";
 import { BottomNavigationAction } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
 
 const BottomNavbar = ({ tab, setTab }) => {
   return (
@@ -24,8 +26,11 @@ const BottomNavbar = ({ tab, setTab }) => {
         onChange={(event, newValue) => {
           setTab(newValue);
         }}>
-        <BottomNavigationAction label="Matches" icon={<PersonIcon />} />
-        <BottomNavigationAction label="Restaurants" icon={<PersonIcon />} />
+        <BottomNavigationAction label="Matches" icon={<FactCheckIcon />} />
+        <BottomNavigationAction
+          label="Restaurants"
+          icon={<RestaurantMenuIcon />}
+        />
         <BottomNavigationAction label="Users" icon={<PersonIcon />} />
       </BottomNavigation>
     </Paper>
