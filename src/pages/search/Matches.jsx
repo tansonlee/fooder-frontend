@@ -29,7 +29,7 @@ const Matches = (props) => {
   };
 
   return (
-    <Box sx={{ p: 2, pl: 4, pr: 4 }}>
+    <Box sx={{ p: 2, pl: 4, pr: 4 }} textAlign="start">
       <Typography sx={{ mb: 1 }} variant="h6" component="h4" align="center">
         Matches
       </Typography>

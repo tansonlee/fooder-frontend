@@ -20,7 +20,7 @@ const Restaurant = (props) => {
         {props.name}
       </Typography>
       <Typography variant="subtitle1" component="h1" color="text.secondary">
-        > Categories:&nbsp;
+        Categories:&nbsp;
         {
           props.categories.map((category) => category.title).join(", ")
           // maybe display categories as diff colours?
