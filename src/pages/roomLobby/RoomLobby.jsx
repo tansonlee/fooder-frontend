@@ -81,7 +81,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 	const formatDistance = distance => distance * 1000;
 
 	const formatPrices = prices => {
-		if (prices[0] == prices[1]) {
+		if (prices[0] === prices[1]) {
 			return prices[0];
 		} else {
 			let priceArray = [];
