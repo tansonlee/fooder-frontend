@@ -78,7 +78,7 @@ const Search = ({
           Loading...
         </Typography>
       ) : (
-        <Grid container spacing={0} sx={{ p: 4 }}>
+        <Grid container spacing={0} sx={{ p: 4, textAlign: "center" }}>
           <Grid
             item
             sm={12}
@@ -109,6 +109,7 @@ const Search = ({
                 xs: canDisplay(RESTAURANTS_TAB),
                 md: "block",
               },
+              margin: "0 auto",
             }}>
             <Restaurant
               {...allRestaurants[restaurantIndex]}

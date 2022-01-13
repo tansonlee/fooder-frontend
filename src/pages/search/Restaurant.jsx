@@ -20,13 +20,7 @@ const Restaurant = (props) => {
         {props.name}
       </Typography>
       <Typography variant="subtitle1" component="h1" color="text.secondary">
-        {/* // sx={{
-        //   display: {
-        //     xs: "none",
-        //     md: "block",
-        //   },
-        // }}> */}
-        Categories:&nbsp;
+        > Categories:&nbsp;
         {
           props.categories.map((category) => category.title).join(", ")
           // maybe display categories as diff colours?
@@ -34,7 +28,12 @@ const Restaurant = (props) => {
       </Typography>
       <Box sx={{ p: 2 }}>
         <img
-          style={{ width: "250px", height: "250px", objectFit: "cover" }} // worry about css later
+          style={{
+            width: "250px",
+            height: "250px",
+            objectFit: "cover",
+            maxWidth: "100%",
+          }}
           src={props.image_url}
           alt={props.name}
         />
