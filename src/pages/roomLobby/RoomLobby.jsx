@@ -206,7 +206,7 @@ const RoomLobby = ({
                 </Box>
                 <Box sx={{ p: 1 }}>
                   <Typography variant="subtitle1" component="h5">
-                    Max Distance in meters:{" "}
+                    Max Distance
                   </Typography>
 
                   <Slider
@@ -225,7 +225,7 @@ const RoomLobby = ({
                 </Box>
                 <Box sx={{ p: 1 }}>
                   <Typography variant="subtitle1" component="h5">
-                    Price Range:
+                    Price Range
                   </Typography>
                   <Slider
                     getAriaLabel={() => "Price range"}
