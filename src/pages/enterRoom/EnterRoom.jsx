@@ -8,23 +8,37 @@ import Layout from "../../components/Layout";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import { FormHelperText } from "@mui/material";
+import socket from "../../socket";
+import { api } from "../../env";
+import axios from "axios";
 
 const EnterRoom = props => {
 	const navigate = useNavigate();
 	const [roomId, setRoomId] = useState("");
 	const [username, setUsername] = useState("");
+	const [roomError, setRoomError] = useState(false);
 	const handleChange = setValue => event => {
 		setValue(event.target.value);
+		setRoomError(false);
 	};
 
 	const handleSubmit = async () => {
-		props.setRoomId(roomId);
-		navigate("/room-lobby", {
-			state: {
-				username: username,
-				roomId: roomId,
-			},
-		});
+		// verify the roomID
+		const endpoint = `${api}/verify-room/${roomId}`;
+		const result = await axios.get(endpoint);
+		if (result.data.validRoom) {
+			props.setRoomId(roomId);
+			navigate("/room-lobby", {
+				state: {
+					username: username,
+					roomId: roomId,
+					userId: socket.id,
+				},
+			});
+		} else {
+			console.log("invalid room");
+			setRoomError(true);
+		}
 	};
 
 	return (
@@ -86,10 +100,11 @@ const EnterRoom = props => {
 								value={roomId}
 								onChange={handleChange(setRoomId)}
 								fullWidth
+								error={roomError}
 								// onChangeText={setRoomId}
 							/>
 							<FormHelperText sx={{ pl: 1 }} id="component-helper-text">
-								Enter a Room ID
+								{roomError ? "That Room ID is invalid" : "Enter a Room ID"}
 							</FormHelperText>
 						</Grid>
 					</Grid>
