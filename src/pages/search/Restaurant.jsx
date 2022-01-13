@@ -9,16 +9,6 @@ import Link from "@mui/material/Link";
 const Restaurant = (props) => {
   // ADD STYLE FOR SWIPING RIGHT/LEFT
 
-  const onSwipeLeft = () => {
-    console.log("You swiped left!");
-    props.swipeNext(true);
-  };
-
-  const onSwipeRight = () => {
-    console.log("You swiped right!");
-    props.swipeNext(false);
-  };
-
   const reformatDistance = (distance) => {
     const kmValue = Math.round(distance / 100) / 10;
     return kmValue + " km";
@@ -29,7 +19,7 @@ const Restaurant = (props) => {
       <Typography variant="h4" component="h6">
         {props.name}
       </Typography>
-      <Typography variant="subtitle1" component="h1">
+      <Typography variant="subtitle1" component="h1" color="text.secondary">
         Categories:&nbsp;
         {
           props.categories.map((category) => category.title).join(", ")
@@ -43,7 +33,7 @@ const Restaurant = (props) => {
           alt={props.name}
         />
       </Box>
-      <Typography variant="subtitle1" component="div">
+      <Typography variant="subtitle1" component="div" color="text.secondary">
         {props.location.display_address.map(
           (addressComponent) => " " + addressComponent
         )}
@@ -68,14 +58,14 @@ const Restaurant = (props) => {
           </Typography>
         </Grid>
       </Grid>
-      <Link href={props.url}>View on Yelp</Link>
-
-      <Button variant="contained" onClick={onSwipeLeft}>
-        Left
-      </Button>
-      <Button variant="contained" onClick={onSwipeRight}>
-        Right
-      </Button>
+      <Link
+        variant="subtitle2"
+        href={props.url}
+        underline="hover"
+        target="_blank"
+        rel="noopener">
+        View on Yelp
+      </Link>
     </Box>
   );
 };

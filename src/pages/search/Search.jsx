@@ -7,6 +7,11 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import UserList from "../../components/UserList";
 import Layout from "../../components/Layout";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import Box from "@mui/material/Box";
 
 const Search = ({
   setMatchedRestaurants,
@@ -56,7 +61,7 @@ const Search = ({
   }, [allRestaurants, setMatchedRestaurants, navigate, roomId]);
 
   return (
-    <Layout>
+    <Layout extendPaper={true}>
       {allRestaurants.length === 0 ? (
         <Typography variant="p" component="div">
           Loading...
@@ -80,6 +85,43 @@ const Search = ({
               {...allRestaurants[restaurantIndex]}
               swipeNext={swipeNext}
             />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+              }}>
+              <IconButton
+                sx={{
+                  backgroundColor: "error.light",
+                  "&:hover": {
+                    backgroundColor: "error.main",
+                  },
+                  width: "5rem",
+                  height: "5rem",
+                }}
+                variant="contained"
+                onClick={() => {
+                  swipeNext(false);
+                }}>
+                <CloseIcon sx={{ fontSize: "2.5rem" }} />
+              </IconButton>
+              <IconButton
+                size="large"
+                sx={{
+                  backgroundColor: "success.main",
+                  "&:hover": {
+                    backgroundColor: "success.dark",
+                  },
+                  width: "5rem",
+                  height: "5rem",
+                }}
+                variant="contained"
+                onClick={() => {
+                  swipeNext(true);
+                }}>
+                <CheckIcon sx={{ fontSize: "2.5rem" }} />
+              </IconButton>
+            </Box>
           </Grid>
           <Grid item sm={usersTab} md={4}>
             <UserList users={users} />
