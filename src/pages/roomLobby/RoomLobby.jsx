@@ -17,7 +17,13 @@ import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
 import ClipboardCopy from "../../components/ClipboardCopy";
 
-const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers }) => {
+const RoomLobby = ({
+  isOwner,
+  setAllRestaurants,
+  roomId,
+  setAppUsers,
+  setIsOwner,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [users, setUsers] = useState([]);
