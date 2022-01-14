@@ -104,7 +104,7 @@ const EnterRoom = props => {
 							/>
 							<FormHelperText sx={{ pl: 1 }} id="component-helper-text">
 								{usernameError
-									? "Username cannot be empty"
+									? "Name cannot be empty"
 									: "This will be displayed to others in your room"}
 							</FormHelperText>
 						</Grid>

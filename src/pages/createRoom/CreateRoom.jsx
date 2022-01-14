@@ -63,11 +63,12 @@ const CreateRoom = ({ setRoomId }) => {
 							value={username}
 							onChange={handleChange(setUsername)}
 							fullWidth
+							error={usernameError}
 							// onChangeText={setUsername}
 						/>
 						<FormHelperText sx={{ pl: 2 }} id="component-helper-text">
 							{usernameError
-								? "Username cannot be empty"
+								? "Name cannot be empty"
 								: "This will be displayed to others in your room"}
 						</FormHelperText>
 
@@ -77,7 +78,7 @@ const CreateRoom = ({ setRoomId }) => {
 							sx={{ m: 3 }}
 							onClick={handleSubmit}
 						>
-							Submit
+							Create
 						</Button>
 					</Box>
 				</Box>
