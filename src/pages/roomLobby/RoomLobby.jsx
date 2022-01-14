@@ -45,7 +45,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 			roomId: location.state.roomId,
 			isOwner: isOwner,
 		});
-	}, []);
+	}, [isOwner, location.state, navigate]);
 
 	useEffect(() => {
 		if (!location.state || !location.state.roomId) {
