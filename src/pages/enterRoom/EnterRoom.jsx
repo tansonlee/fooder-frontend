@@ -133,7 +133,7 @@ const EnterRoom = props => {
 						color="secondary"
 						onClick={handleSubmit}
 					>
-						Submit
+						Enter
 					</Button>
 				</Box>
 			</Stack>
