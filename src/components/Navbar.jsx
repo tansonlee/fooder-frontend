@@ -27,9 +27,6 @@ const Navbar = () => {
 						<img src={logo} alt="" style={{ width: "40px", height: "40px" }} />
 						{/* <HomeIcon /> */}
 					</IconButton>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Fooder
-					</Typography>
 				</Toolbar>
 			</AppBar>
 		</Box>

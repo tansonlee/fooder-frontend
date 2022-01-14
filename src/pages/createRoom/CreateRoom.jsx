@@ -9,15 +9,22 @@ import Box from "@mui/material/Box";
 import Layout from "../../components/Layout";
 import Stack from "@mui/material/Stack";
 import { FormHelperText } from "@mui/material";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const CreateRoom = ({ setRoomId }) => {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
+	const [usernameError, setUsernameError] = useState(false);
 	const handleChange = setValue => event => {
 		setValue(event.target.value);
+		setUsernameError(false);
 	};
 
 	const handleSubmit = async () => {
+		if (username.length < 1) {
+			setUsernameError(true);
+			return;
+		}
 		const endpoint = `${api}/create-room`;
 		try {
 			const result = await axios.post(endpoint, { username: username });
@@ -60,7 +67,9 @@ const CreateRoom = ({ setRoomId }) => {
 							// onChangeText={setUsername}
 						/>
 						<FormHelperText sx={{ pl: 2 }} id="component-helper-text">
-							This will be displayed to others in your room
+							{usernameError
+								? "Username cannot be empty"
+								: "This will be displayed to others in your room"}
 						</FormHelperText>
 
 						<Button
