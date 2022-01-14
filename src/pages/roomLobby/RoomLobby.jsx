@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { FormHelperText } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
@@ -38,16 +39,13 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 			navigate("/");
 			return;
 		}
-		console.log(
-			`emit JOIN_ROOM: username=${location.state.username}, roomId=${location.state.roomId}`
-		);
+
 		socket.emit("JOIN_ROOM", {
 			username: location.state.username,
 			roomId: location.state.roomId,
 			isOwner: isOwner,
 		});
 		socket.on("NEW_ROOM_USERS", ({ users: allUsers }) => {
-			console.log(`on NEW_ROOM_USERS: newUsers=${allUsers}`);
 			setUsers(allUsers);
 			setAppUsers(allUsers);
 			// check if a new owner is assigned to be me
@@ -55,23 +53,29 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 			if (myUserData && myUserData.isOwner) {
 				setIsOwner(true);
 			}
-			console.log("users: ", allUsers);
 		});
 		socket.on("FOUND_RESTAURANTS", data => {
-			console.log("data", data);
-			console.log(`on FOUND_RESTAURANTS: totalRestaurantList=very long list of restaurants`);
+			setIsLoading(false);
 			if (data.success) {
 				setAllRestaurants(data.restaurants);
-				setIsLoading(false);
 				navigate("/search", {
 					users: users,
 				});
 			} else {
-				console.log("FOUND_RESTAURANTS: failed to find restaurants");
 				setLocationError(true);
 			}
 		});
-	}, [setAllRestaurants, isOwner, location.state?.roomId, location.state?.username, navigate]);
+	}, [
+		setAllRestaurants,
+		isOwner,
+		location.state?.roomId,
+		location.state?.username,
+		navigate,
+		location.state,
+		setAppUsers,
+		setIsOwner,
+		users,
+	]);
 
 	useEffect(() => {
 		if (!roomId || roomId.length !== 6) {
@@ -85,7 +89,6 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 				`${api}/address/${position.coords.latitude},${position.coords.longitude}`
 			);
 
-			console.log("locationEdited: ", locationEdited);
 			if (response.data.success && !locationEdited) {
 				setLoc(response.data.address);
 			}
@@ -96,7 +99,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 	const formatDistance = distance => distance * 1000;
 
 	const formatPrices = prices => {
-		if (prices[0] == prices[1]) {
+		if (prices[0] === prices[1]) {
 			return prices[0];
 		} else {
 			let priceArray = [];
@@ -108,9 +111,6 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 	};
 
 	const handleNext = () => {
-		const location = "Waterloo, Ontario";
-		console.log(`owner clicked next`);
-		console.log(`emit GET_RESTAURANTS: location=${location}`);
 		socket.emit("GET_RESTAURANTS", {
 			location: loc,
 			radius: formatDistance(maxDistance),
@@ -247,15 +247,14 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 								</Box>
 							</Box>
 							<Box textAlign="center" sx={{ m: 4 }}>
-								<Button
+								<LoadingButton
+									loading={isLoading}
 									variant="contained"
-									// color="secondary"
 									size="large"
-									// loading={isLoading}
 									onClick={handleNext}
 								>
 									Start
-								</Button>
+								</LoadingButton>
 							</Box>
 						</Box>
 					) : (

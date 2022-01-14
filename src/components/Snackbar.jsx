@@ -3,42 +3,54 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import Slide from "@mui/material/Slide";
+import Alert from "@mui/material/Alert";
 
-export default function SimpleSnackbar({ open, setOpen }) {
-  // const [open, setOpen] = React.u  seState(false);
+function TransitionDown(props) {
+	return <Slide {...props} direction="down" />;
+}
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+export default function SimpleSnackbar({ open, setOpen, openMatches }) {
+	// const [open, setOpen] = React.u  seState(false);
 
-    setOpen(false);
-  };
+	const handleClose = (event, reason) => {
+		if (reason === "clickaway") {
+			return;
+		}
 
-  const action = (
-    <React.Fragment>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}>
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
+		setOpen(false);
+	};
 
-  return (
-    <div>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="Note archived"
-        action={action}
-      />
-    </div>
-  );
+	const action = (
+		<React.Fragment>
+			<Button color="primary" size="small" onClick={openMatches}>
+				See Matches
+			</Button>
+			<IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+				<CloseIcon fontSize="small" />
+			</IconButton>
+		</React.Fragment>
+	);
+
+	return (
+		<Snackbar
+			sx={{
+				display: {
+					xs: "block",
+					md: "none",
+				},
+			}}
+			anchorOrigin={{ vertical: "top", horizontal: "center" }}
+			open={open}
+			autoHideDuration={2000}
+			onClose={handleClose}
+			message="New match!"
+			action={action}
+			TransitionComponent={TransitionDown}
+		>
+			<Alert color="secondary" icon={false} action={action}>
+				New match!
+			</Alert>
+		</Snackbar>
+	);
 }

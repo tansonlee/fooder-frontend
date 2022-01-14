@@ -18,12 +18,9 @@ const CreateRoom = ({ setRoomId }) => {
 	};
 
 	const handleSubmit = async () => {
-		console.log("clicked!");
 		const endpoint = `${api}/create-room`;
-		console.log("ep", endpoint);
 		try {
 			const result = await axios.post(endpoint, { username: username });
-			console.log("username", username, result.data);
 			setRoomId(result.data.roomId);
 			navigate("/room-lobby", {
 				state: {
@@ -33,7 +30,7 @@ const CreateRoom = ({ setRoomId }) => {
 				},
 			});
 		} catch (e) {
-			console.log("error", e);
+			console.error("error", e);
 		}
 	};
 

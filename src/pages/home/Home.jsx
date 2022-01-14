@@ -42,7 +42,6 @@ const Home = ({ setIsOwner }) => {
 						Taking the trouble out of deciding where to eat!
 					</Typography>
 					<Grid container justifyContent="center">
-						{/* <Button title="create a room" onClick={handleCreateRoomPress} /> */}
 						<Button
 							variant="contained"
 							sx={{ m: 2, mt: 0 }}
@@ -50,7 +49,6 @@ const Home = ({ setIsOwner }) => {
 						>
 							Create a Room
 						</Button>
-						{/* <Button title="enter a room" onClick={handleEnterRoomPress} /> */}
 						<Button
 							variant="contained"
 							color="secondary"
