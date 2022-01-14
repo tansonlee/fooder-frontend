@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import socket from "../../socket";
+// import socket from "../../socket";
 import Restaurant from "./Restaurant";
 import Matches from "./Matches";
 import Typography from "@mui/material/Typography";
@@ -18,7 +18,14 @@ const MATCHES_TAB = 0;
 const RESTAURANTS_TAB = 1;
 const USERS_TAB = 2;
 
-const Search = ({ setMatchedRestaurants, matchedRestaurants, allRestaurants, roomId, users }) => {
+const Search = ({
+	setMatchedRestaurants,
+	matchedRestaurants,
+	allRestaurants,
+	roomId,
+	users,
+	socket,
+}) => {
 	const navigate = useNavigate();
 
 	const [tab, setTab] = useState(RESTAURANTS_TAB);
@@ -61,7 +68,7 @@ const Search = ({ setMatchedRestaurants, matchedRestaurants, allRestaurants, roo
 			setMatchedRestaurants(matchingRestaurants);
 			setOpen(true);
 		});
-	}, [allRestaurants, setMatchedRestaurants, navigate, roomId]);
+	}, [allRestaurants, setMatchedRestaurants, navigate, roomId, socket]);
 
 	return (
 		<Layout extendPaper={true}>

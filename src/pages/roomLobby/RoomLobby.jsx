@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import socket from "../../socket";
+// import socket from "../../socket";
 
 import axios from "axios";
 import { api } from "../../env";
@@ -18,7 +18,7 @@ import Layout from "../../components/Layout";
 import UserList from "../../components/UserList";
 import ClipboardCopy from "../../components/ClipboardCopy";
 
-const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner }) => {
+const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner, socket }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [users, setUsers] = useState([]);
@@ -45,7 +45,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 			roomId: location.state.roomId,
 			isOwner: isOwner,
 		});
-	}, [isOwner, location.state, navigate]);
+	}, [isOwner, location.state, navigate, socket]);
 
 	useEffect(() => {
 		if (!location.state || !location.state.roomId) {
@@ -83,6 +83,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 		setAppUsers,
 		setIsOwner,
 		users,
+		socket,
 	]);
 
 	useEffect(() => {

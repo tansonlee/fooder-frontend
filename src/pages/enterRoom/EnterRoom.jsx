@@ -8,7 +8,7 @@ import Layout from "../../components/Layout";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
 import { FormHelperText } from "@mui/material";
-import socket from "../../socket";
+// import socket from "../../socket";
 import { api } from "../../env";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
@@ -45,7 +45,7 @@ const EnterRoom = props => {
 				state: {
 					username: username,
 					roomId: roomId,
-					userId: socket.id,
+					userId: props.socket.id,
 				},
 			});
 		} else {
