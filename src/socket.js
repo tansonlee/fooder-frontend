@@ -3,7 +3,7 @@ import { api } from "./env.js";
 
 const socket = io(`${api}`, {
 	reconnection: true,
-	reconnectionDelay: 500,
+	reconnectionDelay: 20000,
 	maxReconnectionAttempts: 120,
 });
 
