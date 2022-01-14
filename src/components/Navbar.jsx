@@ -2,9 +2,7 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-// import HomeIcon from "@mui/icons-material/Home";
 import logo from "../assets/logo.png";
 import { endpoint } from "../env";
 
@@ -25,7 +23,6 @@ const Navbar = () => {
 						onClick={goHome}
 					>
 						<img src={logo} alt="" style={{ width: "40px", height: "40px" }} />
-						{/* <HomeIcon /> */}
 					</IconButton>
 				</Toolbar>
 			</AppBar>

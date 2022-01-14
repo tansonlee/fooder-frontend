@@ -90,17 +90,17 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 			navigate("/");
 			return;
 		}
-		if (!navigator.geolocation) return;
+		if (navigator.geolocation && isOwner) {
+			navigator.geolocation.getCurrentPosition(async position => {
+				const response = await axios.get(
+					`${api}/address/${position.coords.latitude},${position.coords.longitude}`
+				);
 
-		navigator.geolocation.getCurrentPosition(async position => {
-			const response = await axios.get(
-				`${api}/address/${position.coords.latitude},${position.coords.longitude}`
-			);
-
-			if (response.data.success && !locationEdited) {
-				setLoc(response.data.address);
-			}
-		});
+				if (response.data.success && !locationEdited) {
+					setLoc(response.data.address);
+				}
+			});
+		}
 	}, [navigate, roomId, locationEdited]);
 
 	// convert from km to m

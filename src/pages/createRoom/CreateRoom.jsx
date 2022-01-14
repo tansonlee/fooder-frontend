@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import Layout from "../../components/Layout";
 import Stack from "@mui/material/Stack";
 import { FormHelperText } from "@mui/material";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const CreateRoom = ({ setRoomId }) => {
 	const navigate = useNavigate();
