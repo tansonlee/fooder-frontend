@@ -101,7 +101,7 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 				}
 			});
 		}
-	}, [navigate, roomId, locationEdited]);
+	}, [navigate, roomId, locationEdited, isOwner]);
 
 	// convert from km to m
 	const formatDistance = distance => distance * 1000;
