@@ -45,6 +45,14 @@ const RoomLobby = ({ isOwner, setAllRestaurants, roomId, setAppUsers, setIsOwner
 			roomId: location.state.roomId,
 			isOwner: isOwner,
 		});
+	}, []);
+
+	useEffect(() => {
+		if (!location.state || !location.state.roomId) {
+			navigate("/");
+			return;
+		}
+
 		socket.on("NEW_ROOM_USERS", ({ users: allUsers }) => {
 			setUsers(allUsers);
 			setAppUsers(allUsers);

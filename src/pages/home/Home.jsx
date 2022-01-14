@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Layout from "../../components/Layout";
+import banner from "../../assets/banner.svg";
 
 const Home = ({ setIsOwner }) => {
 	const navigate = useNavigate();
@@ -30,7 +31,8 @@ const Home = ({ setIsOwner }) => {
 					}}
 				>
 					<Typography align="center" variant="h3" sx={{ mt: 4 }} component="h3">
-						Fooder
+						{/* Fooder */}
+						<img src={banner} alt="" />
 					</Typography>
 					<Typography
 						variant="h5"
