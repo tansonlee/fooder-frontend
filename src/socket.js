@@ -4,7 +4,7 @@ import { api } from "./env.js";
 const socket = io(`${api}`, {
 	reconnection: true,
 	reconnectionDelay: 500,
-	maxReconnectionAttempts: Infinity,
+	maxReconnectionAttempts: 120,
 });
 
 export default socket;
