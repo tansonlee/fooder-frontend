@@ -60,7 +60,9 @@ const RoomLobby = ({
       return;
     }
     socket.on("connection", () => {
+      console.log("lobby connect");
       if (location.pathname === "/room-lobby") {
+        console.log("about to emit", location.state);
         socket.emit("RECONNECTING_ROOM", location.state);
       }
     });
