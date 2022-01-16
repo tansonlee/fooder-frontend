@@ -62,6 +62,7 @@ const RoomLobby = ({
     socket.on("connect", () => {
       console.log("lobby connect");
       if (isOwner) {
+        console.log("about to emit...", location.state);
         socket.emit("RECONNECTING_ROOM", location.state);
       }
       socket.emit("JOIN_ROOM", {
