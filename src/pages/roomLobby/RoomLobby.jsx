@@ -55,7 +55,7 @@ const RoomLobby = ({
   }, [isOwner, location.state, navigate, socket]);
 
   useEffect(() => {
-    if (!location.state || !location.state.roomId) {
+    if (!location.state || !location.state.roomId || !location.state.roomId) {
       navigate("/");
       return;
     }
