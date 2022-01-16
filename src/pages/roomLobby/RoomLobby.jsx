@@ -59,7 +59,7 @@ const RoomLobby = ({
       navigate("/");
       return;
     }
-    socket.on("connection", () => {
+    socket.on("connect", () => {
       console.log("lobby connect");
       if (location.pathname === "/room-lobby") {
         console.log("about to emit", location.state);
