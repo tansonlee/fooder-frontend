@@ -41,22 +41,6 @@ const App = () => {
     socket.on("connect", function () {
       console.log("connected");
     });
-
-    socket.on("reconnecting", function () {
-      console.log("reconnecting");
-    });
-
-    socket.on("reconnect_error", function (obj) {
-      console.log("reconnection error");
-    });
-
-    socket.on("reconnect_failed", function () {
-      console.log("reconnection failed");
-    });
-
-    socket.on("disconnect", function () {
-      console.log("disconnected");
-    });
   }, []);
 
   return (
