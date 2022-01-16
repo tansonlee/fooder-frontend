@@ -15,73 +15,95 @@ import io from "socket.io-client";
 import { api } from "./env.js";
 
 const App = () => {
-	const [isOwner, setIsOwner] = useState(false);
-	const [matchedRestaurants, setMatchedRestaurants] = useState([]);
-	const [allRestaurants, setAllRestaurants] = useState([]);
-	const [roomId, setRoomId] = useState(null);
-	const [appUsers, setAppUsers] = useState([]);
-	const [socket, setSocket] = useState(null);
+  const [isOwner, setIsOwner] = useState(false);
+  const [matchedRestaurants, setMatchedRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [roomId, setRoomId] = useState(null);
+  const [appUsers, setAppUsers] = useState([]);
+  const [socket, setSocket] = useState(null);
 
-	const darkTheme = createTheme({
-		palette: {
-			mode: "dark",
-			background: {
-				paper: "#0D1C2D",
-			},
-		},
-	});
+  const darkTheme = createTheme({
+    palette: {
+      mode: "dark",
+      background: {
+        paper: "#0D1C2D",
+      },
+    },
+  });
 
-	useEffect(() => {
-		const socket = io(`${api}`, {
-			reconnection: true,
-			reconnectionDelay: 20000,
-			maxReconnectionAttempts: 120,
-		});
-		setSocket(socket);
-	}, []);
+  useEffect(() => {
+    const socket = io(`${api}`, {
+      reconnection: true,
+      reconnectionDelay: 20000,
+      maxReconnectionAttempts: 120,
+    });
+    setSocket(socket);
+    socket.on("connect", function () {
+      console.log("connected");
+    });
 
-	return (
-		<BrowserRouter>
-			<ThemeProvider theme={darkTheme}>
-				<Routes>
-					<Route path="/" element={<Home setIsOwner={setIsOwner} />} />
-					<Route path="/create-room" element={<CreateRoom setRoomId={setRoomId} />} />
-					<Route
-						path="/enter-room"
-						element={<EnterRoom setRoomId={setRoomId} socket={socket} />}
-					/>
-					<Route
-						path="/room-lobby"
-						element={
-							<RoomLobby
-								isOwner={isOwner}
-								setIsOwner={setIsOwner}
-								setAllRestaurants={setAllRestaurants}
-								roomId={roomId}
-								setAppUsers={setAppUsers}
-								socket={socket}
-							/>
-						}
-					/>
-					<Route
-						path="/search"
-						element={
-							<Search
-								setMatchedRestaurants={setMatchedRestaurants}
-								matchedRestaurants={matchedRestaurants}
-								allRestaurants={allRestaurants}
-								roomId={roomId}
-								users={appUsers}
-								socket={socket}
-							/>
-						}
-					/>
+    socket.on("reconnecting", function () {
+      console.log("reconnecting");
+    });
 
-					<Route path="*" element={<Navigate to="/" />} />
-				</Routes>
-			</ThemeProvider>
-		</BrowserRouter>
-	);
+    socket.on("reconnect_error", function (obj) {
+      console.log("reconnection error");
+    });
+
+    socket.on("reconnect_failed", function () {
+      console.log("reconnection failed");
+    });
+
+    socket.on("disconnect", function () {
+      console.log("disconnected");
+    });
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <ThemeProvider theme={darkTheme}>
+        <Routes>
+          <Route path="/" element={<Home setIsOwner={setIsOwner} />} />
+          <Route
+            path="/create-room"
+            element={<CreateRoom setRoomId={setRoomId} />}
+          />
+          <Route
+            path="/enter-room"
+            element={<EnterRoom setRoomId={setRoomId} socket={socket} />}
+          />
+          <Route
+            path="/room-lobby"
+            element={
+              <RoomLobby
+                isOwner={isOwner}
+                setIsOwner={setIsOwner}
+                setAllRestaurants={setAllRestaurants}
+                roomId={roomId}
+                setAppUsers={setAppUsers}
+                socket={socket}
+              />
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <Search
+                setMatchedRestaurants={setMatchedRestaurants}
+                matchedRestaurants={matchedRestaurants}
+                allRestaurants={allRestaurants}
+                roomId={roomId}
+                users={appUsers}
+                socket={socket}
+              />
+            }
+          />
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
 };
 
 export default App;
