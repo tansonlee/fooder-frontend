@@ -94,6 +94,7 @@ const RoomLobby = ({
     location.state?.username,
     navigate,
     location.state,
+    location.pathname,
     setAppUsers,
     setIsOwner,
     users,
