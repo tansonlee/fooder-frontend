@@ -59,22 +59,6 @@ const RoomLobby = ({
       navigate("/");
       return;
     }
-    socket.on("connect", () => {
-      console.log("lobby connect");
-      if (isOwner) {
-        console.log("about to emit...", location.state);
-        socket.emit("RECONNECTING_ROOM", location.state);
-      }
-      // socket.emit("JOIN_ROOM", {
-      //   username: location.state.username,
-      //   roomId: location.state.roomId,
-      //   isOwner: isOwner,
-      // });
-      // if (location.pathname === "/room-lobby") {
-      //   console.log("about to emit", location.state);
-      //   socket.emit("RECONNECTING_ROOM", location.state);
-      // }
-    });
 
     socket.on("NEW_ROOM_USERS", ({ users: allUsers }) => {
       setUsers(allUsers);
