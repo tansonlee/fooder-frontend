@@ -10,20 +10,20 @@ Using Node.js, Socket.io, and the Yelp REST API, you can create rooms with peopl
 
 ### Home Page
 
-<img src="assets/home.png" >
+<img src="assets/home.png" width="200px">
 
 ### Creating a Room
 
-<img src="assets/create-room.png" >
+<img src="assets/create-room.png" width="200px" >
 
 ### Entering a Room
 
-<img src="assets/enter-room.png" >
+<img src="assets/enter-room.png" width="200px" >
 
 ### Room Lobby
 
-<img src="assets/room-lobby.png" >
+<img src="assets/room-lobby.png" width="200px" >
 
 ### Matching Restaurants
 
-<img src="assets/matching.png" >
+<img src="assets/matching.png" width="200px" >
