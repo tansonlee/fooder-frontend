@@ -1,8 +1,8 @@
 # Fooder
 
-Hosted site here: (https://fooderweb.netlify.app/)[https://fooderweb.netlify.app/]
+Hosted site here: [https://fooderweb.netlify.app/](https://fooderweb.netlify.app/)
 
-Backend code here: (Backend)[https://github.com/josephperez3/fooder-backend]
+Backend code here: [Backend](https://github.com/josephperez3/fooder-backend)
 
 Fooder is an app that helps people decide where to eat.
 
